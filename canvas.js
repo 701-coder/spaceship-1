@@ -22,7 +22,7 @@ class Bullet{
 			y: 0,
 			r: 50,
 			deg: 0,
-			v: 15,
+			v: 12,
             time: 0
 		}
 		Object.assign(def, args);
@@ -43,7 +43,7 @@ class Bullet{
         this.y+=this.v*Math.sin(this.deg);
 	}
     dead(){
-        if(this.time>180||this.x<-bw||this.x>=bw||this.y<-bh||this.y>=bh){
+        if(this.time>180){
             return true;
         }
         return false;
@@ -62,7 +62,7 @@ class Ship{
             bullet: [],
             time: 0,
             kind: 0,
-            v: 300,
+            v: 480,
             hp: 100,
             mhp: 100,
             rhp: 0.05,
@@ -183,7 +183,7 @@ function init(){
         kind: 1,
         r: 50,
         hp: 100,
-        reload: 10
+        reload: 15
     });
     for(var i=0; i<100; ++i){
         deg=Math.random()*2*Math.PI;
@@ -218,13 +218,17 @@ function draw(){
 	//grid
 	let span=50;
 	ctx.beginPath();
-	for(var i=-bw; i<=bw; i+=span){
+	for(var i=0; i<=bw; i+=span){
 		ctx.moveTo(i, -bh);
 		ctx.lineTo(i, bh);
+        ctx.moveTo(-i, -bh);
+        ctx.lineTo(-i, bh);
 	}
-	for(var i=-bh; i<=bh; i+=span){
+	for(var i=0; i<=bh; i+=span){
 		ctx.moveTo(-bw, i);
 		ctx.lineTo(bw, i);
+        ctx.moveTo(-bw, -i);
+        ctx.lineTo(bw, -i);
 	}
 	ctx.strokeStyle='rgba(255, 255, 255, 0.2)';
 	ctx.stroke();
